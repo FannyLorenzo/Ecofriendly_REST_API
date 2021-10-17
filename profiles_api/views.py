@@ -37,7 +37,7 @@ class HelloApiView(APIView):
         return Response({'method': 'PUT'})
     
     def patch(self, request, pk=None):
-        """ maneja actualización parcial de un objeto"""
+        """ maneja actualización parcial de un objeto """
         return Response({'method': 'PATCH'})
     
     def delete(self, request, pk=None):

@@ -40,13 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    # a partir de aqui 
     'profiles_api',
-
-
-
-
-]
+    'usuarios_api',
+    'centrosAcopio_api',
+    'huellaEcologica_api',
+    'fichasInformativas_api',
+    
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
