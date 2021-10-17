@@ -27,6 +27,6 @@ ejemplo: python manage.py makemigrations profiles_api
 y luego  python manage.py migrate
 
 
-Posdata:
+Posdata :
 CURSO SEGUIDO: https://www.youtube.com/watch?v=Z8ADAr9KZYc 
 
