@@ -10,7 +10,7 @@ ambiente> Scripts/activate.bat
 (ambiente) E:\APLICACIONES\PROYECTO_TAIS\Proyecto_Back\ambiente\REST_API> python manage.py runserver
 
 """ Se puede acceder a modo de prueba a los siguientes urls: """
-http://127.0.0.1:8000/api/admin/
+http://127.0.0.1:8000/api/admin/  (cuenta superusuario email: eco@eco.com  password: 123456)
 http://127.0.0.1:8000/api/hello/ (aqui el minicrud de prueba)
 http://127.0.0.1:8000/api/admin/profiles_api/userprofile/
 
