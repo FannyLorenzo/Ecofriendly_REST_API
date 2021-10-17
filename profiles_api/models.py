@@ -48,3 +48,21 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 # Create your models here.
+from db.db_connection import database
+
+# MODELO (CARRO DE PRUEBA)
+class Car(models.Model):
+    name = models.CharField(max_length=200)
+    top_speed = models.IntegerField()
+
+    # OBTENER TODOS LOS REGISTROS DE LA TABLA CARS
+    def getCars():
+        id = database.child('Cars').child('1').child('name').get().val()
+        cars = database.child('Cars').get().val()
+        
+        arr_cars = []
+        for item in cars:
+            if item != None:
+                arr_cars.append(Car(name=item.get('name'), top_speed=item.get('top_speed')))
+
+        return arr_cars

@@ -5,6 +5,10 @@ from rest_framework import status #para devolver respuestas http 400 por ejemplo
 
 from profiles_api import serializers
 
+import json
+import pyrebase
+from profiles_api.models import Car
+
 """ API View de Prueba  """
 class HelloApiView(APIView):
     serializer_class = serializers.HelloSerializer
@@ -43,6 +47,17 @@ class HelloApiView(APIView):
     def delete(self, request, pk=None):
         """ borrar un objeto"""
         return Response({'method': 'DELETE'})
+
+
+from django.core import serializers
+
+class CarApiView(APIView):  
     
-    
+    def get(self, request):
+        
+        cars = Car.getCars()
+        # data = serializers.serialize('json', [cars, ])
+        # struct = json.loads(data)
+        # data = json.dumps(struct[0])
+        return Response(serializers.serialize('json', cars))
     

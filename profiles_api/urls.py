@@ -3,5 +3,6 @@ from profiles_api import views
 
 urlpatterns = [
     path('hello/', views.HelloApiView.as_view(), name='hello'), # ejemplo
+    path('cars/', views.CarApiView.as_view())
 
 ]
