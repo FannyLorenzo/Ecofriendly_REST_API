@@ -2,21 +2,23 @@
 import pyrebase
 
 config = {
-  "apiKey": "AIzaSyC5faofrC7kfBpp7RSX9O3iOkRucNmCNSc",
 
-  "authDomain": "recicla-aqp-app.firebaseapp.com",
+  "apiKey": "AIzaSyBJNWrkN9j5FmXQt7sAdHk1CpORENSYo6Q",
 
-  "databaseURL": "https://recicla-aqp-app-default-rtdb.firebaseio.com",
+  "authDomain": "ecofriendly-db.firebaseapp.com",
 
-  "projectId": "recicla-aqp-app",
+  "databaseURL": "https://ecofriendly-db-default-rtdb.firebaseio.com",
 
-  "storageBucket": "recicla-aqp-app.appspot.com",
+  "projectId": "ecofriendly-db",
 
-  "messagingSenderId": "1093377891879",
+  "storageBucket": "ecofriendly-db.appspot.com",
 
-  "appId": "1:1093377891879:web:e1b79358463d9e25a57802",
+  "messagingSenderId": "110507311572",
 
-#   "measurementId": "G-VZRC6QG6GX"
+  "appId": "1:110507311572:web:5de1b6ff6798397afe1641"
+
+  # "measurementId": "G-434RL5YFF7"
+
 }
 
 firebase = pyrebase.initialize_app(config)

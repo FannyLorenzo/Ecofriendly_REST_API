@@ -57,12 +57,30 @@ class Car(models.Model):
 
     # OBTENER TODOS LOS REGISTROS DE LA TABLA CARS
     def getCars():
-        id = database.child('Cars').child('1').child('name').get().val()
+
+        #
+        # FORMA 1 Y DEVUELVE UN STRING LARGO QUE DEBERIA SER JSON
+        #
+
+        # id = database.child('Cars').child('1').child('name').get().val()
+        # cars = database.child('Cars').get().val()
+        
+        # arr_cars = []
+        # for item in cars:
+        #     if item != None:
+        #         arr_cars.append(Car(name=item.get('name'), top_speed=item.get('top_speed')))
+
+        # return arr_cars
+
+        #
+        # FORMA 2 Y DEVUELVE UN DICCIONARIO (NO UTILIZA OBJETOS)
+        #
         cars = database.child('Cars').get().val()
         
-        arr_cars = []
+        dict_cars = {"data":[]}
         for item in cars:
             if item != None:
-                arr_cars.append(Car(name=item.get('name'), top_speed=item.get('top_speed')))
+                # arr_cars.append(Car(name=item.get('name'), top_speed=item.get('top_speed')))
+                dict_cars["data"].append( { "car_name":item.get('name'), "car_top_spe":item.get('top_speed')})
+        return dict_cars
 
-        return arr_cars

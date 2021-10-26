@@ -55,9 +55,14 @@ class CarApiView(APIView):
     
     def get(self, request):
         
-        cars = Car.getCars()
-        # data = serializers.serialize('json', [cars, ])
-        # struct = json.loads(data)
-        # data = json.dumps(struct[0])
-        return Response(serializers.serialize('json', cars))
+        #MANERA 1
+        # cars = Car.getCars()
+        # # data = serializers.serialize('json', [cars, ])
+        # # struct = json.loads(data)
+        # # data = json.dumps(struct[0])
+        # return Response(serializers.serialize('json', cars))
     
+        #MANERA 2
+
+        cars = Car.getCars()
+        return Response(cars)
