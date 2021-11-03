@@ -7,5 +7,6 @@ urlpatterns = [
     path('usuarios/', views.UsuarioApiView.as_view()),
     path('usuarios/create/', views.UsuarioCreateApiView.as_view()),
     path('usuarios/delete/', views.UsuarioDeleteApiView.as_view())
-
+# editar
+# validar
 ]
