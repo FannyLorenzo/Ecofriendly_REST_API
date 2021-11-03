@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -50,6 +51,8 @@ INSTALLED_APPS = [
     ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -135,3 +138,9 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'profiles_api.UserProfile'
+
+#al momento de ir a producción, cambiar por el dominio deployado del frontend
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+    "http://localhost:4300"
+]
