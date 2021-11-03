@@ -84,3 +84,64 @@ class Car(models.Model):
                 dict_cars["data"].append( { "car_name":item.get('name'), "car_top_spe":item.get('top_speed')})
         return dict_cars
 
+class Usuario(models.Model):
+
+    def getUsuarios():
+        
+        try:
+            usuarios = database.child('Usuarios').get().val()
+            
+            dict_usuarios = {"data":[]}
+            for item in usuarios:
+                if item != None:
+                    # arr_cars.append(Car(name=item.get('name'), top_speed=item.get('top_speed')))
+                    dict_usuarios["data"].append( 
+                        { 
+                            "apellido":item.get('apellido'), 
+                            "email":item.get('email'),
+                            "estado":item.get('estado'),
+                            "id":item.get('id'),
+                            "nombre":item.get('nombre'),
+                            "rol":item.get('rol'),
+                        })
+            return dict_usuarios  
+
+        except:
+            return {"message":"Ocurrió un error"}
+
+    def createUsuario(data):
+        try:
+            data = {
+                "id": data["id"],
+                "apellido": data["apellido"],
+                "email": data["email"],
+                "estado": data["estado"],
+                "nombre": data["nombre"],
+                "password": data["password"],
+                "rol": data["rol"]
+            }
+        
+            if database.child('Usuarios').child(data["id"]).get().val():
+                return {"message": "Este usuario ya esta creado"}
+            else:
+                database.child('Usuarios').child(data["id"]).set(data)
+                return {"message": "Agregado exitosamente"}
+        except:
+            return {"message":"Ocurrió un error"}
+        # data = {
+        #     "id" : "3",
+        #     "name" : "carro morado",
+        #     "top_speed" : "43"
+        # }
+        # database.child('Cars').child('3').set(data)
+    
+    def deleteUsuario(data):
+        try:
+        
+            if database.child('Usuarios').child(data["id"]).get().val():
+                database.child('Usuarios').child(data["id"]).remove()
+                return {"message": "Usuario eliminado exitosamente"}
+            else:
+                return {"message": "Este usuario no existe!"}
+        except:
+            return {"message":"Ocurrió un error"}

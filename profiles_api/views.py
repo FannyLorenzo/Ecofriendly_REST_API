@@ -5,8 +5,6 @@ from rest_framework import status #para devolver respuestas http 400 por ejemplo
 
 from profiles_api import serializers
 
-import json
-import pyrebase
 from profiles_api.models import Car
 
 """ API View de Prueba  """
@@ -66,3 +64,25 @@ class CarApiView(APIView):
 
         cars = Car.getCars()
         return Response(cars)
+
+from profiles_api.models import Usuario
+
+class UsuarioApiView(APIView):
+
+    def get(self, request):
+        usuarios = Usuario.getUsuarios()
+        return Response(usuarios)
+
+
+class UsuarioCreateApiView(APIView):
+
+    def post(self, request):    
+        res = Usuario.createUsuario(request.data)
+        return Response(res)
+
+
+class UsuarioDeleteApiView(APIView):
+    
+    def post(self, request):
+        res = Usuario.deleteUsuario(request.data)
+        return Response(res)
