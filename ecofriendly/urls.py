@@ -19,7 +19,8 @@ from django.urls import path, include
  
 content = [
    path('admin/', admin.site.urls),    
-   path('', include('profiles_api.urls')), # apartir de aquí añadir más rutas
+   path('', include('profiles_api.urls')), 
+   path('', include('fichasInformativas_api.urls')), # apartir de aquí añadir más rutas
 ]
 
 urlpatterns = [

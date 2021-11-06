@@ -86,3 +86,9 @@ class UsuarioDeleteApiView(APIView):
     def post(self, request):
         res = Usuario.deleteUsuario(request.data)
         return Response(res)
+
+class UsuarioUpdateApiView(APIView):
+
+    def post(self, request):    
+        res = Usuario.updateUsuario(request.data)
+        return Response(res)

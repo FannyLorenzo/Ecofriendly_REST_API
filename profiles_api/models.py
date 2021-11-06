@@ -145,3 +145,23 @@ class Usuario(models.Model):
                 return {"message": "Este usuario no existe!"}
         except:
             return {"message":"Ocurrió un error"}
+    
+    def updateUsuario(data):
+        try:
+            data = {
+                "id": data["id"],
+                "apellido": data["apellido"],
+                "email": data["email"],
+                "estado": data["estado"],
+                "nombre": data["nombre"],
+                "password": data["password"],
+                "rol": data["rol"]
+            }
+        
+            if database.child('Usuarios').child(data["id"]).get().val():
+                database.child('Usuarios').child(data["id"]).set(data)
+                return {"message": "Datos modificados"}
+            else:
+                return {"message": "Este registro no existe"}
+        except:
+            return {"message":"Ocurrió un error"}
