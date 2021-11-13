@@ -1,31 +1,34 @@
-from django.db import models
+import global_methods
+from django.db import models 
 
 # Create your models here.
 from db.db_connection import database
 
-# MODELO (CARRO DE PRUEBA)
 class CentroAcopio(models.Model):
 
-    # OBTENER TODOS LOS REGISTROS DE LA TABLA CARS
+
     def getCentrosAcopio():
         try:
-            centros = database.child('CentroAcopio').get().val()
+            centros = database.child('CentroAcopio').get()
             
             dict_centros = {"data":[]}
-            for item in centros:
-                if item != None:
+            for item in centros.each():
+                if item != None:    
                     dict_centros["data"].append( 
                         { 
-                            "id":item.get('id'),
-                            "descripcion":item.get('descripcion'),
-                            "direccion":item.get('direccion'),
-                            "estado":item.get('estado'),
-                            "horario":item.get('horario'),
-                            "latitud":item.get('latitud'),
-                            "longitud":item.get('longitud'),
-                            "nombre":item.get('nombre'),
-                            "telefono":item.get('telefono')
+                            "id":item.val().get('id'),
+                            "categoria":item.val().get('categoria'),
+                            "descripcion":item.val().get('descripcion'),
+                            "direccion":item.val().get('direccion'),
+                            "estado":item.val().get('estado'),
+                            "horario":item.val().get('horario'),
+                            "latitud":item.val().get('latitud'),
+                            "longitud":item.val().get('longitud'),
+                            "nombre":item.val().get('nombre'),
+                            "telefono":item.val().get('telefono')
+                            
                         })
+                    
             return dict_centros
 
         except:
@@ -35,7 +38,8 @@ class CentroAcopio(models.Model):
     def createCentroAcopio(data):
         try:
             data = {
-                "id":data["id"],
+                "id":global_methods.uuid_generator(),
+                "categoria":data['categoria'],
                 "descripcion":data['descripcion'],
                 "direccion":data['direccion'],
                 "estado":data['estado'],
@@ -59,9 +63,9 @@ class CentroAcopio(models.Model):
         
             if database.child('CentroAcopio').child(data["id"]).get().val():
                 database.child('CentroAcopio').child(data["id"]).remove()
-                return {"message": "Ficha eliminada exitosamente"}
+                return {"message": "Centro eliminada exitosamente"}
             else:
-                return {"message": "Esta ficha no existe!"}
+                return {"message": "Este centro no existe!"}
         except:
             return {"message":"Ocurrió un error"}
 
@@ -69,6 +73,7 @@ class CentroAcopio(models.Model):
         try:
             data = {
                 "id":data["id"],
+                "categoria":data['categoria'],
                 "descripcion":data['descripcion'],
                 "direccion":data['direccion'],
                 "estado":data['estado'],
@@ -81,8 +86,8 @@ class CentroAcopio(models.Model):
         
             if database.child('CentroAcopio').child(data["id"]).get().val():
                 database.child('CentroAcopio').child(data["id"]).set(data)
-                return {"message": "Datos de ficha modificados", "actual": data}
+                return {"message": "Datos de centro modificados", "actual": data}
             else:
-                return {"message": "Esta ficha no existe"}
+                return {"message": "Este centro no existe"}
         except:
             return {"message":"Ocurrió un error"}  

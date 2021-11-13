@@ -1,3 +1,4 @@
+import global_methods
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
@@ -11,20 +12,20 @@ class FichaInformativa(models.Model):
     def getFichaInformativa():
         
         try:
-            fichas = database.child('FichasInformativas').get().val()
+            fichas = database.child('FichasInformativas').get()
             
             dict_fichas = {"data":[]}
-            for item in fichas:
+            for item in fichas.each():
                 if item != None:
                     dict_fichas["data"].append( 
                         { 
-                            "id":item.get('id'),
-                            "fecha":item.get('fecha'),
-                            "titulo":item.get('titulo'),
-                            "descripcion":item.get('descripcion'),
-                            "url_imagen":item.get('url_imagen'),
-                            "tipo":item.get('tipo'),
-                            "detalle":item.get('detalle'),
+                            "id":item.val().get('id'),
+                            "fecha":item.val().get('fecha'),
+                            "titulo":item.val().get('titulo'),
+                            "descripcion":item.val().get('descripcion'),
+                            "url_imagen":item.val().get('url_imagen'),
+                            "tipo":item.val().get('tipo'),
+                            "detalle":item.val().get('detalle'),
                         })
             return dict_fichas  
 
@@ -34,7 +35,7 @@ class FichaInformativa(models.Model):
     def createFichaInformativa(data):
         try:
             data = {
-                "id":data["id"],
+                "id":global_methods.uuid_generator(),
                 "fecha":data["fecha"],
                 "titulo":data["titulo"],
                 "descripcion":data["descripcion"],

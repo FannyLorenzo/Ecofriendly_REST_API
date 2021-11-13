@@ -1,3 +1,4 @@
+import global_methods
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
@@ -89,20 +90,21 @@ class Usuario(models.Model):
     def getUsuarios():
         
         try:
-            usuarios = database.child('Usuarios').get().val()
+            usuarios = database.child('Usuarios').get()
             
             dict_usuarios = {"data":[]}
-            for item in usuarios:
+            for item in usuarios.each():
                 if item != None:
+                    print(item)
                     # arr_cars.append(Car(name=item.get('name'), top_speed=item.get('top_speed')))
                     dict_usuarios["data"].append( 
                         { 
-                            "apellido":item.get('apellido'), 
-                            "email":item.get('email'),
-                            "estado":item.get('estado'),
-                            "id":item.get('id'),
-                            "nombre":item.get('nombre'),
-                            "rol":item.get('rol'),
+                            "apellido":item.val().get('apellido'), 
+                            "email":item.val().get('email'),
+                            "estado":item.val().get('estado'),
+                            "id":item.val().get('id'),
+                            "nombre":item.val().get('nombre'),
+                            "rol":item.val().get('rol'),
                         })
             return dict_usuarios  
 
@@ -112,7 +114,7 @@ class Usuario(models.Model):
     def createUsuario(data):
         try:
             data = {
-                "id": data["id"],
+                "id": global_methods.uuid_generator(),
                 "apellido": data["apellido"],
                 "email": data["email"],
                 "estado": data["estado"],
