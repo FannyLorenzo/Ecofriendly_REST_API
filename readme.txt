@@ -2,6 +2,7 @@
 python 3.9.7
 django 3.2.7
 djangorestframework 3.12.4
+ejecutar pip install -r requirements.txt  (para instalar las librerias a la fecha)
 
 """ INICIO """
 Activar el ambiente de trabajo instalado y correr el proyecto
