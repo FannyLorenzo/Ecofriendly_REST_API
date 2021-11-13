@@ -92,3 +92,9 @@ class UsuarioUpdateApiView(APIView):
     def post(self, request):    
         res = Usuario.updateUsuario(request.data)
         return Response(res)
+
+class UsuarioRetrieveApiView(APIView):
+
+    def post(self, request):    
+        res = Usuario.retrieveUsuario(request.data)
+        return Response(res)

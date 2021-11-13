@@ -30,3 +30,9 @@ class CentroAcopioUpdateApiView(APIView):
     def post(self, request):    
         res = CentroAcopio.updateCentroAcopio(request.data)
         return Response(res)
+
+class CentroAcopioRetrieveApiView(APIView):
+
+    def post(self, request):    
+        res = CentroAcopio.retrieveCentroAcopio(request.data)
+        return Response(res)

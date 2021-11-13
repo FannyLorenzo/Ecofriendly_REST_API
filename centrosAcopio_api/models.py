@@ -91,3 +91,12 @@ class CentroAcopio(models.Model):
                 return {"message": "Este centro no existe"}
         except:
             return {"message":"Ocurrió un error"}  
+
+    def retrieveCentroAcopio(data):
+        
+        try:
+            if database.child('CentroAcopio').child(data["id"]).get().val():
+                centro = database.child('CentroAcopio').child(data["id"]).get().val()                
+            return centro
+        except:
+            return {"message": "No existe un registro con ese id"}

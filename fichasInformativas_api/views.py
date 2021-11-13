@@ -30,3 +30,9 @@ class FichaInformativaUpdateApiView(APIView):
     def post(self, request):    
         res = FichaInformativa.updateFichaInformativa(request.data)
         return Response(res)
+
+class FichaInformativaRetrieveApiView(APIView):
+
+    def post(self, request):    
+        res = FichaInformativa.retrieveFichaInformativa(request.data)
+        return Response(res)

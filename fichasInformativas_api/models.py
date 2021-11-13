@@ -84,5 +84,13 @@ class FichaInformativa(models.Model):
         except:
             return {"message":"Ocurrió un error"}  
 
+    def retrieveFichaInformativa(data):
+        
+        try:
+            if database.child('FichasInformativas').child(data["id"]).get().val():
+                ficha = database.child('FichasInformativas').child(data["id"]).get().val()                
+            return ficha
+        except:
+            return {"message": "No existe un registro con ese id"}
 
     

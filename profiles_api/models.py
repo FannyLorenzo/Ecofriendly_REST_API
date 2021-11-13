@@ -167,3 +167,12 @@ class Usuario(models.Model):
                 return {"message": "Este registro no existe"}
         except:
             return {"message":"Ocurrió un error"}
+
+    def retrieveUsuario(data):
+        
+        try:
+            if database.child('Usuarios').child(data["id"]).get().val():
+                usuario = database.child('Usuarios').child(data["id"]).get().val()                
+            return usuario
+        except:
+            return {"message": "No existe un registro con ese id"}
