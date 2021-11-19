@@ -95,7 +95,7 @@ class Usuario(models.Model):
             dict_usuarios = {"data":[]}
             for item in usuarios.each():
                 if item != None:
-                    print(item)
+                    # print(item)
                     # arr_cars.append(Car(name=item.get('name'), top_speed=item.get('top_speed')))
                     dict_usuarios["data"].append( 
                         { 
@@ -120,7 +120,8 @@ class Usuario(models.Model):
                 "estado": data["estado"],
                 "nombre": data["nombre"],
                 "password": data["password"],
-                "rol": data["rol"]
+                "rol": data["rol"],
+                "token": global_methods.uuid_generator() + global_methods.uuid_generator()
             }
         
             if database.child('Usuarios').child(data["id"]).get().val():
@@ -130,12 +131,7 @@ class Usuario(models.Model):
                 return {"message": "Agregado exitosamente"}
         except:
             return {"message":"Ocurrió un error"}
-        # data = {
-        #     "id" : "3",
-        #     "name" : "carro morado",
-        #     "top_speed" : "43"
-        # }
-        # database.child('Cars').child('3').set(data)
+       
     
     def deleteUsuario(data):
         try:
@@ -176,3 +172,20 @@ class Usuario(models.Model):
             return usuario
         except:
             return {"message": "No existe un registro con ese id"}
+
+
+    def login(data):
+        try:
+            usuarios = database.child('Usuarios').get()
+            user = data["email"]
+            password = data["password"]
+            
+            for item in usuarios.each():
+                if item != None:
+                    if user == item.val().get('email') and password ==item.val().get('password'):
+                        return {"rol": item.val().get('rol'), "token": item.val().get('token')}
+                    
+            return {"message": "El usuario o contraseña no son correctos"}  
+
+        except:
+            return {"message": "Ocurrio un error"}

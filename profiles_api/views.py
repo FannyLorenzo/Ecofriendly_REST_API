@@ -6,6 +6,7 @@ from rest_framework import status #para devolver respuestas http 400 por ejemplo
 from profiles_api import serializers
 
 from profiles_api.models import Car
+import global_methods
 
 """ API View de Prueba  """
 class HelloApiView(APIView):
@@ -68,33 +69,68 @@ class CarApiView(APIView):
 from profiles_api.models import Usuario
 
 class UsuarioApiView(APIView):
-
     def get(self, request):
-        usuarios = Usuario.getUsuarios()
-        return Response(usuarios)
-
+        try:
+            validation = global_methods.validateToken(request.headers['Authorization'][7:])
+            if validation['status'] and validation['rol'] == "superadmin":
+                usuarios = Usuario.getUsuarios()
+                return Response(usuarios)
+            return Response({"message": "Acceso no autorizado"})
+        except:
+            return Response({"message": "Ocurrió un error"})
 
 class UsuarioCreateApiView(APIView):
-
     def post(self, request):    
-        res = Usuario.createUsuario(request.data)
-        return Response(res)
+        try:
+            validation = global_methods.validateToken(request.headers['Authorization'][7:])
+            if validation['status'] == True and validation['rol'] == "superadmin":
+                res = Usuario.createUsuario(request.data)
+                return Response(res)
+            return Response({"message": "Acceso no autorizado"})
+        except:
+            return Response({"message": "Ocurrió un error"})
 
 
-class UsuarioDeleteApiView(APIView):
-    
+class UsuarioDeleteApiView(APIView): 
     def post(self, request):
-        res = Usuario.deleteUsuario(request.data)
-        return Response(res)
+        try:
+            validation = global_methods.validateToken(request.headers['Authorization'][7:])
+            if validation['status'] == True and (validation['rol'] == "superadmin" or validation['rol'] == "admin"):
+                res = Usuario.deleteUsuario(request.data)
+                return Response(res)
+            return Response({"message": "Acceso no autorizado"})
+        except:
+            return Response({"message": "Ocurrió un error"})
+
 
 class UsuarioUpdateApiView(APIView):
+    def post(self, request):
+        try:
+            validation = global_methods.validateToken(request.headers['Authorization'][7:])
+            if validation['status'] == True and (validation['rol'] == "superadmin" or validation['rol'] == "admin"):
+                res = Usuario.updateUsuario(request.data)
+                return Response(res)
+            return Response({"message": "Acceso no autorizado"})
+        except:
+            return Response({"message": "Ocurrió un error"})
 
-    def post(self, request):    
-        res = Usuario.updateUsuario(request.data)
-        return Response(res)
 
 class UsuarioRetrieveApiView(APIView):
+    def post(self, request):  
+        try:
+            validation = global_methods.validateToken(request.headers['Authorization'][7:])
+            if validation['status'] == True and (validation['rol'] == "superadmin" or validation['rol'] == "admin"):
+                res = Usuario.retrieveUsuario(request.data)
+                return Response(res)
+            return Response({"message": "Acceso no autorizado"})
+        except:
+            return Response({"message": "Ocurrió un error"})
 
-    def post(self, request):    
-        res = Usuario.retrieveUsuario(request.data)
+
+class UsuarioLoginApiView(APIView):
+    def post(self, request):
+        
+        res = Usuario.login(request.data)
         return Response(res)
+        
+        
