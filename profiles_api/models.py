@@ -183,7 +183,7 @@ class Usuario(models.Model):
             for item in usuarios.each():
                 if item != None:
                     if user == item.val().get('email') and password ==item.val().get('password'):
-                        return {"rol": item.val().get('rol'), "token": item.val().get('token')}
+                        return {"rol": item.val().get('rol'), "token": item.val().get('token'), "id": item.val().get('id')}
                     
             return {"message": "El usuario o contraseña no son correctos"}  
 
