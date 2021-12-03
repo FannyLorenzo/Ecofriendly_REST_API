@@ -8,7 +8,10 @@ urlpatterns = [
     path('usuarios/create/', views.UsuarioCreateApiView.as_view()),
     path('usuarios/delete/', views.UsuarioDeleteApiView.as_view()),
     path('usuarios/update/', views.UsuarioUpdateApiView.as_view()),    
-    path('usuarios/retrieve/', views.UsuarioRetrieveApiView.as_view())
+    path('usuarios/retrieve/', views.UsuarioRetrieveApiView.as_view()),
+
+
+    path('usuarios/login/', views.UsuarioLoginApiView.as_view())
 # editar
 # validar
 ]
