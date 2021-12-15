@@ -105,6 +105,7 @@ class Usuario(models.Model):
                             "id":item.val().get('id'),
                             "nombre":item.val().get('nombre'),
                             "rol":item.val().get('rol'),
+                            "password":item.val().get('password')
                         })
             return dict_usuarios  
 
