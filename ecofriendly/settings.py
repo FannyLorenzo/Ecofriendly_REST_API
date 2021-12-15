@@ -142,5 +142,6 @@ AUTH_USER_MODEL = 'profiles_api.UserProfile'
 #al momento de ir a producción, cambiar por el dominio deployado del frontend
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
-    "http://localhost:4300"
+    "http://localhost:4300",
+    "https://ecofriendly-82b95.web.app"
 ]
