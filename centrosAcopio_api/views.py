@@ -9,11 +9,9 @@ import global_methods
 class CentroAcopioApiView(APIView):
     def get(self, request):
         try:
-            validation = global_methods.validateToken(request.headers['Authorization'][7:])
-            if validation['status'] == True and (validation['rol'] == "superadmin" or validation['rol'] == "admin"):  
-                centroAcopios = CentroAcopio.getCentrosAcopio()
-                return Response(centroAcopios)
-            return Response({"message": "Acceso no autorizado"})
+            centroAcopios = CentroAcopio.getCentrosAcopio()
+            return Response(centroAcopios)
+            
         except:
             return Response({"message": "Ocurrió un error"})
 
