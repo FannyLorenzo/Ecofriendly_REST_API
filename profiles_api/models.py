@@ -185,31 +185,6 @@ class Usuario(models.Model):
         except:
             return {"message": "No existe un registro con ese id"}
 
-    def getUsuarios():
-        
-        try:
-            usuarios = database.child('Usuarios').get()
-            
-            dict_usuarios = {"data":[]}
-            for item in usuarios.each():
-                if item != None:
-                    # print(item)
-                    # arr_cars.append(Car(name=item.get('name'), top_speed=item.get('top_speed')))
-                    dict_usuarios["data"].append( 
-                        { 
-                            "apellido":item.val().get('apellido'), 
-                            "email":item.val().get('email'),
-                            "estado":item.val().get('estado'),
-                            "id":item.val().get('id'),
-                            "nombre":item.val().get('nombre'),
-                            "rol":item.val().get('rol'),
-                            "password":item.val().get('password')
-                        })
-            return dict_usuarios  
-
-        except:
-            return {"message":"Ocurrió un error"}
-
 
 
 
