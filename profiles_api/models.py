@@ -156,8 +156,10 @@ class Usuario(models.Model):
                 "password": data["password"],
                 "rol": data["rol"]
             }
+                  
         
             if database.child('Usuarios').child(data["id"]).get().val():
+                data['token'] = database.child('Usuarios').child(data["id"]).get().val().get('token')
                 database.child('Usuarios').child(data["id"]).set(data)
                 return {"message": "Datos modificados"}
             else:
@@ -169,10 +171,46 @@ class Usuario(models.Model):
         
         try:
             if database.child('Usuarios').child(data["id"]).get().val():
-                usuario = database.child('Usuarios').child(data["id"]).get().val()                
+                usuario_data = database.child('Usuarios').child(data["id"]).get().val()
+                usuario = {
+                    "apellido":usuario_data.get('apellido'), 
+                    "email":usuario_data.get('email'),
+                    "estado":usuario_data.get('estado'),
+                    "id":usuario_data.get('id'),
+                    "nombre":usuario_data.get('nombre'),
+                    "rol":usuario_data.get('rol'),
+                    "password":usuario_data.get('password')
+                }
             return usuario
         except:
             return {"message": "No existe un registro con ese id"}
+
+    def getUsuarios():
+        
+        try:
+            usuarios = database.child('Usuarios').get()
+            
+            dict_usuarios = {"data":[]}
+            for item in usuarios.each():
+                if item != None:
+                    # print(item)
+                    # arr_cars.append(Car(name=item.get('name'), top_speed=item.get('top_speed')))
+                    dict_usuarios["data"].append( 
+                        { 
+                            "apellido":item.val().get('apellido'), 
+                            "email":item.val().get('email'),
+                            "estado":item.val().get('estado'),
+                            "id":item.val().get('id'),
+                            "nombre":item.val().get('nombre'),
+                            "rol":item.val().get('rol'),
+                            "password":item.val().get('password')
+                        })
+            return dict_usuarios  
+
+        except:
+            return {"message":"Ocurrió un error"}
+
+
 
 
     def login(data):
