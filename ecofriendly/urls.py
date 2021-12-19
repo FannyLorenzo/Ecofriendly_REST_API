@@ -21,7 +21,8 @@ content = [
    path('admin/', admin.site.urls),    
    path('', include('profiles_api.urls')), 
    path('', include('fichasInformativas_api.urls')), # apartir de aquí añadir más rutas
-   path('', include('centrosAcopio_api.urls') )
+   path('', include('centrosAcopio_api.urls') ),
+   path('', include('huellaEcologica_api.urls') )
 ]
 
 urlpatterns = [
